@@ -25,7 +25,7 @@ router.put('/:id', async (req, res) => {
       res.status(500).json(err);
     }
   } else {
-    return res.status(403).json('You can only update your own user account.');
+    res.status(403).json('You can only update your own user account.');
   }
 });
 

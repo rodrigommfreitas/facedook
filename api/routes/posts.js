@@ -25,7 +25,7 @@ router.put('/:id/edit', async (req, res) => {
       await post.updateOne({ $set: req.body });
       res.status(200).json('Post successfully edited.');
     } else {
-      return res.status(403).json('You can only update your own posts.');
+      res.status(403).json('You can only update your own posts.');
     }
   } catch (err) {
     res.status(500).json(err);
@@ -41,7 +41,7 @@ router.delete('/:id/delete', async (req, res) => {
       await post.deleteOne();
       res.status(200).json('Post successfully deleted.');
     } else {
-      return res.status(403).json('You can only delete your own posts.');
+      res.status(403).json('You can only delete your own posts.');
     }
   } catch (err) {
     res.status(500).json(err);
