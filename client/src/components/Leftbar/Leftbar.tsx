@@ -5,7 +5,7 @@ import { MarketplaceFillIcon } from '../Icons/MarketplaceFillIcon';
 
 export const Leftbar = () => {
   const itemStyle =
-    'flex items-center gap-3 pl-3 py-3 hover:bg-gray-200 active:bg-gray-300 transition-all rounded-lg';
+    'flex items-center gap-3 pl-2 py-2 hover:bg-gray-200 active:bg-gray-300 transition-all rounded-lg';
 
   return (
     <nav className='hidden w-[200px] xl:w-[290px] 2xl:w-[360px] lg:flex fixed left-2 overflow-y-scroll'>
@@ -15,7 +15,7 @@ export const Leftbar = () => {
             <img
               src=''
               alt=''
-              className='bg-primary w-7 h-7 rounded-full object-cover'
+              className='bg-primary w-9 h-9 rounded-full object-cover'
             />
             <span>Chuck Norris</span>
           </a>
@@ -23,7 +23,7 @@ export const Leftbar = () => {
         <li>
           <a href='#' className={`${itemStyle}`}>
             <i className='text-primary'>
-              <FriendsIcon height='1.75em' width='1.75em' />
+              <FriendsIcon height='2.25em' width='2.25em' />
             </i>
             <span>Friends</span>
           </a>
@@ -31,7 +31,7 @@ export const Leftbar = () => {
         <li>
           <a href='#' className={`${itemStyle}`}>
             <i className='text-primary'>
-              <GroupsFillIcon height='1.75em' width='1.75em' />
+              <GroupsFillIcon height='2.25em' width='2.25em' />
             </i>
             <span>Groups</span>
           </a>
@@ -39,7 +39,7 @@ export const Leftbar = () => {
         <li>
           <a href='#' className={`${itemStyle}`}>
             <i className='text-primary'>
-              <MarketplaceFillIcon height='1.75em' width='1.75em' />
+              <MarketplaceFillIcon height='2.25em' width='2.25em' />
             </i>
             <span>Marketplace</span>
           </a>
@@ -47,15 +47,15 @@ export const Leftbar = () => {
         <li>
           <a href='#' className={`${itemStyle}`}>
             <i className='text-primary'>
-              <FriendsIcon height='1.75em' width='1.75em' />
+              <FriendsIcon height='2.25em' width='2.25em' />
             </i>
             <span>Watch</span>
           </a>
         </li>
         <li>
           <a href='#' className={`${itemStyle}`}>
-            <i className=''>
-              <ArrowDownIcon height='1.75em' width='1.75em' />
+            <i className='text-gray-dark'>
+              <ArrowDownIcon height='2.25em' width='2.25em' />
             </i>
             <span>Show more</span>
           </a>
