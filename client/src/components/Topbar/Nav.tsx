@@ -12,7 +12,7 @@ export const Nav = () => {
         <li className='hidden md:flex justify-center'>
           <a
             href='#'
-            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-10 active:bg-gray-200 transition-all'
+            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-12 active:bg-gray-200 transition-all'
           >
             <HomeIcon height='1.75em' width='1.75em' />
           </a>
@@ -20,7 +20,7 @@ export const Nav = () => {
         <li className='hidden md:flex'>
           <a
             href='#'
-            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-10 active:bg-gray-200 transition-all'
+            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-12 active:bg-gray-200 transition-all'
           >
             <PlayIcon height='1.75em' width='1.75em' />
           </a>
@@ -28,7 +28,7 @@ export const Nav = () => {
         <li className='hidden md:flex'>
           <a
             href='#'
-            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-10 active:bg-gray-200 transition-all'
+            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-12 active:bg-gray-200 transition-all'
           >
             <MarketplaceIcon height='1.75em' width='1.75em' />
           </a>
@@ -36,7 +36,7 @@ export const Nav = () => {
         <li className='hidden md:flex'>
           <a
             href='#'
-            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-10 active:bg-gray-200 transition-all'
+            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-12 active:bg-gray-200 transition-all'
           >
             <GroupsIcon height='1.75em' width='1.75em' />
           </a>
@@ -45,7 +45,7 @@ export const Nav = () => {
         <li className='hidden lg:flex'>
           <a
             href='#'
-            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-10 active:bg-gray-200 transition-all'
+            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-5 lg:px-12 active:bg-gray-200 transition-all'
           >
             <GamesIcon height='1.75em' width='1.75em' />
           </a>
@@ -54,7 +54,7 @@ export const Nav = () => {
         <li className='flex lg:hidden'>
           <a
             href='#'
-            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-[10px] md:px-5 lg:px-10 ml-4 md:ml-0 active:bg-gray-200 transition-all'
+            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-[10px] md:px-5 lg:px-12 ml-4 md:ml-0 active:bg-gray-200 transition-all'
           >
             <HamburgerMenuIcon height='1.75em' width='1.75em' />
           </a>
