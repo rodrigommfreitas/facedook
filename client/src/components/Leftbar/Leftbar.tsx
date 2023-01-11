@@ -57,7 +57,7 @@ export const Leftbar = () => {
             <i className='text-gray-dark'>
               <ArrowDownIcon height='2.25em' width='2.25em' />
             </i>
-            <span>Show more</span>
+            <span>See more</span>
           </a>
         </li>
       </ul>
