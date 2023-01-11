@@ -49,7 +49,7 @@ export const Left = () => {
           placeholder='Search Facedook'
           className={`${
             isOpen ? 'flex' : 'hidden xl:flex'
-          } bg-gray-light w-48 outline-none`}
+          } bg-gray-light mx-4 xl:mx-0 w-32 xl:w-48 outline-none`}
         />
       </div>
     </div>
