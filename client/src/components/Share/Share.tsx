@@ -6,7 +6,7 @@ export const Share = () => {
   const itemStyle =
     'flex gap-2 py-2 rounded-lg items-center justify-center hover:bg-gray-light active:bg-gray-200 transition-all';
   return (
-    <div className='w-full bg-white px-4 py-3 rounded-lg shadow-sm shadow-gray-300'>
+    <div className='w-full bg-white px-4 py-3 sm:rounded-lg shadow-sm shadow-gray-300'>
       <div className='flex gap-2'>
         <a href='#'>
           <img
