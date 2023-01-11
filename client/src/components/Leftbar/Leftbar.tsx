@@ -2,6 +2,7 @@ import { ArrowDownIcon } from '../Icons/ArrowDownIcon';
 import { FriendsIcon } from '../Icons/FriendsIcon';
 import { GroupsFillIcon } from '../Icons/GroupsFillIcon';
 import { MarketplaceFillIcon } from '../Icons/MarketplaceFillIcon';
+import { PlayFillIcon } from '../Icons/PlayFillIcon';
 
 export const Leftbar = () => {
   const itemStyle =
@@ -23,7 +24,11 @@ export const Leftbar = () => {
         <li>
           <a href='#' className={`${itemStyle}`}>
             <i className='text-primary'>
-              <FriendsIcon height='2.25em' width='2.25em' />
+              <FriendsIcon
+                height='2.25em'
+                width='2.25em'
+                fill={'url(#grad1)'}
+              />
             </i>
             <span>Friends</span>
           </a>
@@ -47,7 +52,7 @@ export const Leftbar = () => {
         <li>
           <a href='#' className={`${itemStyle}`}>
             <i className='text-primary'>
-              <FriendsIcon height='2.25em' width='2.25em' />
+              <PlayFillIcon height='2.25em' width='2.25em' />
             </i>
             <span>Watch</span>
           </a>
