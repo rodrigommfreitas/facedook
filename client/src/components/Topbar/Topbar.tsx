@@ -4,7 +4,7 @@ import { Right } from './Right';
 
 export const Topbar = () => {
   return (
-    <div>
+    <div className='bg-white sticky top-0 h-14 w-screen px-4 flex md:justify-between shadow-md shadow-gray-200'>
       <Left />
       <Nav />
       <Right />

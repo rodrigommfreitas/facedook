@@ -4,7 +4,7 @@ export const Home = () => {
   return (
     <>
       <Topbar />
-      <div> Home </div>
+      <div className='bg-gray-light h-screen'> Home </div>
     </>
   );
 };
