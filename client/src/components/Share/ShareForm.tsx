@@ -30,7 +30,7 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
     <div className='absolute flex justify-center items-center top-0 left-0 h-screen w-screen bg-black bg-opacity-30'>
       <div
         ref={ref}
-        className='w-[500px] bg-white rounded-lg shadow-md shadow-gray-dark'
+        className='w-[90%] sm:w-[500px] bg-white sm:rounded-lg shadow-md shadow-gray-dark'
       >
         <div className='flex justify-between items-center p-3 border-b border-gray-200'>
           <div className='h-9 w-9 -z-10'></div>
@@ -66,12 +66,15 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
             name='text'
             id=''
             placeholder="What's on your mind, Chuck?"
-            className='w-full mt-4 outline-none resize-none text-2xl h-[150px]'
+            className='w-full mt-4 outline-none resize-none text-2xl h-[100px] lg:h-[150px]'
           ></textarea>
 
-          <div className='my-4 p-4 flex justify-between border rounded-lg border-gray-300 shadow-md shadow-gray-light'>
-            <button className='font-bold'>Add to your post</button>
-            <div className='flex gap-1'>
+          <div className='my-4 p-4 flex justify-center sm:justify-between border rounded-lg border-gray-300 shadow-md shadow-gray-light'>
+            <button className='hidden sm:block text-base font-bold'>
+              Add to your post
+            </button>
+
+            <div className='flex gap-2 sm:gap-1'>
               <button className={`text-green-500 ${btnStyle}`}>
                 <PhotoVideoIcon height='1.5em' width='1.5em' />
               </button>
