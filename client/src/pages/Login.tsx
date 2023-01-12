@@ -4,12 +4,18 @@ export const Login = () => {
 
   return (
     <div className='h-screen w-full bg-gray-light flex items-center justify-center'>
-      <div className='flex items-center gap-32'>
-        <div className='flex flex-col gap-4 mb-28'>
-          <h1 className='text-primary text-7xl font-extrabold'>facedook</h1>
+      <div className='flex flex-col lg:flex-row items-center gap-12 lg:gap-32'>
+        <div className='flex flex-col gap-4 lg:mb-28'>
+          <h1 className='text-primary text-center lg:text-left text-6xl lg:text-7xl font-extrabold'>
+            facedook
+          </h1>
           <span>
-            <h2 className='text-3xl'>Connect with friends and the world</h2>
-            <h2 className='text-3xl'>around you on Facedook.</h2>
+            <h2 className='text-2xl lg:text-3xl text-center lg:text-left'>
+              Connect with friends and the world
+            </h2>
+            <h2 className='text-2xl lg:text-3xl text-center lg:text-left'>
+              around you on Facedook.
+            </h2>
           </span>
         </div>
 
