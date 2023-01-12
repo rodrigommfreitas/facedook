@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { ArrowBackIcon } from '../Icons/ArrowBackIcon';
 import { FacebookIcon } from '../Icons/FacebookIcon';
@@ -7,6 +8,7 @@ import { SearchIcon } from '../Icons/SearchIcon';
 export const Left = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useOnClickOutside(ref, () => {
     isOpen && toggleSearchbar(false);
@@ -26,7 +28,7 @@ export const Left = () => {
           <ArrowBackIcon height='1.5em' width='1.5em' />
         </button>
       ) : (
-        <a href='#' className='text-primary'>
+        <a href='#' onClick={() => navigate('/home')} className='text-primary'>
           <FacebookIcon height='2.5em' width='2.5em' />
         </a>
       )}
