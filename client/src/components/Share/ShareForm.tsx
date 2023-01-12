@@ -4,7 +4,6 @@ import { CloseIcon } from '../Icons/CloseIcon';
 import { DownIcon } from '../Icons/DownIcon';
 import { FlagIcon } from '../Icons/FlagIcon';
 import { FriendsIcon } from '../Icons/FriendsIcon';
-import { GroupsIcon } from '../Icons/GroupsIcon';
 import { LocationIcon } from '../Icons/LocationIcon';
 import { MoreIcon } from '../Icons/MoreIcon';
 import { PhotoVideoIcon } from '../Icons/PhotoVideoIcon';
