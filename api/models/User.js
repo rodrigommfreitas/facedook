@@ -10,9 +10,9 @@ const UserSchema = new mongoose.Schema(
     followers: { type: Array, default: [] },
     following: { type: Array, default: [] },
     isAdmin: { type: Boolean, default: false },
-    desc: { type: String, max: 50 },
-    city: { type: String, max: 50 },
-    from: { type: String, max: 50 },
+    bio: { type: String, max: 50, default: '' },
+    location: { type: String, max: 50, default: 'unknown' },
+    from: { type: String, max: 50, default: 'unknown' },
     status: { type: Number, enum: [1, 2, 3] },
   },
   { timestamps: true }
