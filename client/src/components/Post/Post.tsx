@@ -1,10 +1,32 @@
+import { useState } from 'react';
 import { CommentIcon } from '../Icons/CommentIcon';
 import { FriendsIcon } from '../Icons/FriendsIcon';
 import { LikeFillIcon } from '../Icons/LikeFillIcon';
 import { LikeIcon } from '../Icons/LikeIcon';
 import { ShareIcon } from '../Icons/ShareIcon';
 
-export const Post = () => {
+type Props = {
+  post?: {
+    userId: string;
+    desc: string;
+    img: string;
+    likes: Array<any>;
+  };
+};
+
+export const Post = ({ post }: Props) => {
+  const [likeCount, setLikeCount] = useState<number | undefined>(
+    post?.likes.length
+  );
+  const [isLiked, setIsLiked] = useState<boolean | null>(null);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    setLikeCount(
+      isLiked ? (likeCount as number) - 1 : (likeCount as number) + 1
+    );
+  };
+
   const btnStyle =
     'flex gap-2 py-2 rounded-lg items-center justify-center hover:bg-gray-light active:bg-gray-200 transition-all';
 

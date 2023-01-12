@@ -12,7 +12,7 @@ export const Share = () => {
   };
 
   const itemStyle =
-    'flex gap-2 py-2 rounded-lg items-center justify-center hover:bg-gray-light active:bg-gray-200 transition-all';
+    'flex gap-1 sm:gap-2 py-2 rounded-lg items-center justify-center hover:bg-gray-light active:bg-gray-200 transition-all';
 
   return (
     <>
@@ -39,7 +39,7 @@ export const Share = () => {
 
         <div className='h-[1px] w-full my-3 bg-gray-200'></div>
 
-        <div className='grid grid-cols-3 text-sm sm:text-base font-semibold text-gray-dark'>
+        <div className='grid grid-cols-3 text-xs sm:text-base font-semibold text-gray-dark'>
           <button className={`${itemStyle}`}>
             <i className='text-rose-600'>
               <LiveVideoIcon height='1.5em' width='1.5em' />
