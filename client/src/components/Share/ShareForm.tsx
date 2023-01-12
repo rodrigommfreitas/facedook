@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { CloseIcon } from '../Icons/CloseIcon';
 import { DownIcon } from '../Icons/DownIcon';
@@ -21,6 +21,14 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
   useOnClickOutside(ref, () => {
     isOpen && toggleShareForm(false);
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   const btnStyle =
     'flex items-center justify-center rounded-full h-9 w-9 hover:bg-gray-light active:bg-gray-200 active:scale-95 transition-all';
