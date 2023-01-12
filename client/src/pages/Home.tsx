@@ -5,7 +5,7 @@ import { Topbar } from '../components/Topbar/Topbar';
 
 export const Home = () => {
   return (
-    <div className='bg-gray-light'>
+    <div className='bg-gray-light w-full h-fit'>
       <Topbar />
       <div className='w-screen flex mt-6'>
         <Leftbar />
