@@ -13,11 +13,9 @@ type Props = {
 };
 
 export const Post = ({ post }: Props) => {
-  const [likeCount, setLikeCount] = useState<number | undefined>(
-    post.likes.length
-  );
+  const [likeCount, setLikeCount] = useState<number>(post.likes.length);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserType | Record<string, never>>({});
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,7 +24,7 @@ export const Post = ({ post }: Props) => {
       setUser(res.data);
     };
     fetchUser();
-  }, []);
+  }, [post.userId]);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -42,9 +40,9 @@ export const Post = ({ post }: Props) => {
     <div className='w-full bg-white pt-3 pb-1 sm:rounded-lg shadow-sm shadow-gray-300'>
       <div className='flex px-4 items-center gap-1'>
         <a href='#' className='mr-2'>
-          {user?.profilePicture !== '' ? (
+          {user.profilePicture !== '' ? (
             <img
-              src={user?.profilePicture}
+              src={user.profilePicture}
               alt=''
               className='w-10 h-10 rounded-full object-cover'
             />
@@ -57,7 +55,7 @@ export const Post = ({ post }: Props) => {
 
         <div className='flex flex-col gap-1'>
           <a href='#' className='w-fit font-semibold hover:underline'>
-            {user?.username}
+            {user.username}
           </a>
           <div className='flex gap-2 items-center text-gray-dark text-xs'>
             <span>{format(post.createdAt)} · </span>
