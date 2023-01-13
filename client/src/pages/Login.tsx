@@ -22,7 +22,7 @@ export const Login = () => {
         <div className='bg-white rounded-xl w-[400px] flex flex-col items-center shadow-md shadow-gray-300 p-4'>
           <div className='w-full flex flex-col'>
             <input
-              type='text'
+              type='email'
               placeholder='Email'
               className={`${inputStyle} mb-3`}
             />
