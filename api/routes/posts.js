@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const Post = require('../models/Post');
 const User = require('../models/User');
+const cors = require('cors');
 
-router.get('/', (req, res) => console.log('posts page'));
+const corsOptions = {
+  optionsSuccessStatus: 200,
+};
 
 // Create post
 router.post('/new', async (req, res) => {
@@ -76,7 +79,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Get feed posts (posts from user and his friends)
-router.get('/feed/:userId', async (req, res) => {
+router.get('/feed/:userId', cors(corsOptions), async (req, res) => {
   try {
     const currentUser = await User.findById(req.params.userId);
     const currentUserPosts = await Post.find({ userId: currentUser._id });
