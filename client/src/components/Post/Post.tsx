@@ -7,6 +7,7 @@ import { LikeFillIcon } from '../Icons/LikeFillIcon';
 import { LikeIcon } from '../Icons/LikeIcon';
 import { ShareIcon } from '../Icons/ShareIcon';
 import { PostType, UserType } from '../../globals/types';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   post: PostType;
@@ -17,9 +18,11 @@ export const Post = ({ post }: Props) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | Record<string, never>>({});
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`users/${post.userId}`);
+      const res = await axios.get(`users?userId=${post.userId}`);
       console.log(res);
       setUser(res.data);
     };
@@ -39,7 +42,10 @@ export const Post = ({ post }: Props) => {
   return (
     <div className='w-full bg-white pt-3 pb-1 sm:rounded-lg shadow-sm shadow-gray-300'>
       <div className='flex px-4 items-center gap-1'>
-        <a href='#' className='mr-2'>
+        <a
+          onClick={() => navigate(`../profile/${user.username}`)}
+          className='mr-2 cursor-pointer'
+        >
           {user.profilePicture !== '' ? (
             <img
               src={user.profilePicture}
@@ -54,7 +60,10 @@ export const Post = ({ post }: Props) => {
         </a>
 
         <div className='flex flex-col gap-1'>
-          <a href='#' className='w-fit font-semibold hover:underline'>
+          <a
+            onClick={() => navigate(`../profile/${user.username}`)}
+            className='cursor-pointer w-fit font-semibold hover:underline'
+          >
             {user.username}
           </a>
           <div className='flex gap-2 items-center text-gray-dark text-xs'>
@@ -81,7 +90,10 @@ export const Post = ({ post }: Props) => {
 
       <div className='h-[1px] w-full mb-1 px-4 bg-gray-200'></div>
       <div className='grid grid-cols-3 px-4 font-semibold text-gray-dark'>
-        <button onClick={handleLike} className={`${btnStyle}`}>
+        <button
+          onClick={handleLike}
+          className={`${btnStyle} ${isLiked && `text-primary`}`}
+        >
           <LikeIcon height='1.25em' width='1.25em' />
           <span>Like</span>
         </button>
