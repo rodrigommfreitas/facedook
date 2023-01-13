@@ -1,17 +1,14 @@
-import { useState } from 'react';
+import { instance as axios } from '../../globals/axios';
+import { useEffect, useState } from 'react';
 import { CommentIcon } from '../Icons/CommentIcon';
 import { FriendsIcon } from '../Icons/FriendsIcon';
 import { LikeFillIcon } from '../Icons/LikeFillIcon';
 import { LikeIcon } from '../Icons/LikeIcon';
 import { ShareIcon } from '../Icons/ShareIcon';
+import { PostType } from '../../globals/types';
 
 type Props = {
-  post?: {
-    userId: string;
-    desc: string;
-    img: string;
-    likes: Array<any>;
-  };
+  post?: PostType;
 };
 
 export const Post = ({ post }: Props) => {
@@ -19,6 +16,16 @@ export const Post = ({ post }: Props) => {
     post?.likes.length
   );
   const [isLiked, setIsLiked] = useState<boolean | null>(null);
+  const [user, setUser] = useState<any>({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(`users/${post?.userId}`);
+      setUser(res.data);
+      console.log(res);
+    };
+    fetchUser();
+  }, []);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -35,18 +42,18 @@ export const Post = ({ post }: Props) => {
       <div className='flex px-4 items-center gap-1'>
         <a href='#' className='mr-2'>
           <img
-            src=''
+            src={user.profilePicture}
             alt=''
-            className='bg-primary w-10 h-10 rounded-full object-cover'
+            className='w-10 h-10 rounded-full object-cover'
           />
         </a>
 
         <div className='flex flex-col gap-1'>
           <a href='#' className='font-semibold hover:underline'>
-            {post?.userId}
+            {user.username}
           </a>
           <div className='flex gap-2 items-center text-gray-dark text-xs'>
-            <span>20h ·</span>
+            <span>{post?.createdAt.valueOf().toString().slice(0, 10)} · </span>
             <FriendsIcon />
           </div>
         </div>
