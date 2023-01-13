@@ -69,7 +69,7 @@ export const Post = ({ post }: Props) => {
 
       <div className='h-[1px] w-full mb-1 px-4 bg-gray-200'></div>
       <div className='grid grid-cols-3 px-4 font-semibold text-gray-dark'>
-        <button className={`${btnStyle}`}>
+        <button onClick={handleLike} className={`${btnStyle}`}>
           <LikeIcon height='1.25em' width='1.25em' />
           <span>Like</span>
         </button>
