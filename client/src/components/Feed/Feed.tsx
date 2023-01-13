@@ -2,9 +2,10 @@ import { instance as axios } from '../../globals/axios';
 import { useEffect, useState } from 'react';
 import { Post } from '../Post/Post';
 import { Share } from '../Share/Share';
+import { PostType } from '../../globals/types';
 
 export const Feed = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostType[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
