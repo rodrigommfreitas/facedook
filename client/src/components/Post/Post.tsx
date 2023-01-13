@@ -1,4 +1,5 @@
 import { instance as axios } from '../../globals/axios';
+import { format } from 'timeago.js';
 import { useEffect, useState } from 'react';
 import { CommentIcon } from '../Icons/CommentIcon';
 import { FriendsIcon } from '../Icons/FriendsIcon';
@@ -8,19 +9,20 @@ import { ShareIcon } from '../Icons/ShareIcon';
 import { PostType, UserType } from '../../globals/types';
 
 type Props = {
-  post?: PostType;
+  post: PostType;
 };
 
 export const Post = ({ post }: Props) => {
   const [likeCount, setLikeCount] = useState<number | undefined>(
-    post?.likes.length
+    post.likes.length
   );
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`users/${post?.userId}`);
+      const res = await axios.get(`users/${post.userId}`);
+      console.log(res);
       setUser(res.data);
     };
     fetchUser();
@@ -58,14 +60,14 @@ export const Post = ({ post }: Props) => {
             {user?.username}
           </a>
           <div className='flex gap-2 items-center text-gray-dark text-xs'>
-            <span>{post?.createdAt.valueOf().toString().slice(0, 10)} · </span>
+            <span>{format(post.createdAt)} · </span>
             <FriendsIcon />
           </div>
         </div>
       </div>
-      <div className='my-3 px-4'>{post?.desc}</div>
+      <div className='my-3 px-4'>{post.desc}</div>
 
-      {post?.img && (
+      {post.img && (
         <img className='w-full h-64 bg-primary' src={post.img} alt='' />
       )}
 
