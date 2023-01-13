@@ -43,7 +43,7 @@ export const Post = ({ post }: Props) => {
 
         <div className='flex flex-col gap-1'>
           <a href='#' className='font-semibold hover:underline'>
-            Chuck Norris
+            {post?.userId}
           </a>
           <div className='flex gap-2 items-center text-gray-dark text-xs'>
             <span>20h ·</span>
@@ -51,22 +51,18 @@ export const Post = ({ post }: Props) => {
           </div>
         </div>
       </div>
-      <div className='my-3 px-4'>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam
-        harum odio rem quidem alias neque nostrum tempora eligendi, adipisci
-        saepe totam exercitationem aliquam ipsam? Inventore magni aliquid ipsum
-        voluptatum eveniet doloribus quia expedita. Recusandae, quidem.
-        Molestias, aliquid ipsam facere, unde repudiandae excepturi cumque est
-        saepe ratione dignissimos exercitationem corporis ad?
-      </div>
-      <img className='w-full h-64 bg-primary' src='' alt='' />
+      <div className='my-3 px-4'>{post?.desc}</div>
+
+      {post?.img && (
+        <img className='w-full h-64 bg-primary' src={post.img} alt='' />
+      )}
 
       <div className='w-full px-4 my-3 flex items-center text-sm text-gray-dark justify-between'>
         <div className='flex gap-2 items-center'>
           <i className='text-white h-fit w-fit bg-primary p-[6px] rounded-full bg-gradient-to-b from-[#17ABFD] to-[#1B74E4] '>
             <LikeFillIcon height='0.75em' width='0.75em' />
           </i>
-          <span className='hover:underline'>8</span>
+          <span className='hover:underline'>{likeCount}</span>
         </div>
         <span className='hover:underline'>0 comments</span>
       </div>
