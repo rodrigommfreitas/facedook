@@ -1,6 +1,6 @@
 import { instance as axios } from '../../globals/axios';
 import { format } from 'timeago.js';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CommentIcon } from '../Icons/CommentIcon';
 import { FriendsIcon } from '../Icons/FriendsIcon';
 import { LikeFillIcon } from '../Icons/LikeFillIcon';
@@ -8,6 +8,7 @@ import { LikeIcon } from '../Icons/LikeIcon';
 import { ShareIcon } from '../Icons/ShareIcon';
 import { PostType, UserType } from '../../globals/types';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 type Props = {
   post: PostType;
@@ -17,8 +18,13 @@ export const Post = ({ post }: Props) => {
   const [likeCount, setLikeCount] = useState<number>(post.likes.length);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | Record<string, never>>({});
+  const { user: currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLiked(post.likes.includes((currentUser as UserType)._id));
+  }, [currentUser?._id, post.likes]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -30,10 +36,13 @@ export const Post = ({ post }: Props) => {
   }, [post.userId]);
 
   const handleLike = () => {
+    try {
+      axios.put('/posts/' + post._id + '/like', { userId: currentUser?._id });
+    } catch (err) {
+      console.log(err);
+    }
+    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
     setIsLiked(!isLiked);
-    setLikeCount(
-      isLiked ? (likeCount as number) - 1 : (likeCount as number) + 1
-    );
   };
 
   const btnStyle =
@@ -53,7 +62,7 @@ export const Post = ({ post }: Props) => {
               className='w-10 h-10 rounded-full object-cover'
             />
           ) : (
-            <div className='text-2xl font-black text-white w-10 h-10 rounded-full bg-primary object-cover flex items-center justify-center'>
+            <div className='text-3xl font-black text-primary w-10 h-10 rounded-full bg-gray-light object-cover flex items-center justify-center'>
               {user.username.charAt(0).toLocaleUpperCase()}
             </div>
           )}
