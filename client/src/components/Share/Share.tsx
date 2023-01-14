@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { LiveVideoIcon } from '../Icons/LiveVideoIcon';
 import { PhotoVideoIcon } from '../Icons/PhotoVideoIcon';
@@ -9,6 +10,8 @@ export const Share = () => {
   const { user } = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const toggleShareForm = (a: boolean) => {
     setIsOpen(a);
@@ -25,7 +28,10 @@ export const Share = () => {
 
       <div className='w-full bg-white px-4 py-3 sm:rounded-lg shadow-sm shadow-gray-300'>
         <div className='flex gap-2'>
-          <a href='#'>
+          <a
+            className='cursor-pointer'
+            onClick={() => navigate(`../profile/${user?.username}`)}
+          >
             {user?.profilePicture !== '' ? (
               <img
                 src={user?.profilePicture}
@@ -56,7 +62,10 @@ export const Share = () => {
             </i>
             <span>Live video</span>
           </button>
-          <button className={`${itemStyle}`}>
+          <button
+            onClick={() => toggleShareForm(true)}
+            className={`${itemStyle}`}
+          >
             <i className='text-green-500'>
               <PhotoVideoIcon height='1.5em' width='1.5em' />
             </i>
