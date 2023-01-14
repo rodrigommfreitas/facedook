@@ -26,7 +26,7 @@ export const Feed = ({ username }: Props) => {
 
   return (
     <div
-      className={`flex flex-col gap-4 ${
+      className={`flex flex-col gap-4 pb-6 ${
         !username &&
         ' h-fit min-h-screen w-[640px] md:w-2/3 lg:w-[572px] xl:w-[652px] sm:mx-auto md:mx-8 lg:mx-auto'
       } `}
