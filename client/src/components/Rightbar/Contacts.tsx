@@ -22,6 +22,11 @@ export const Contacts = () => {
 
   return (
     <ul className='mt-2 pl-2'>
+      {friends.length === 0 && (
+        <li className='font-bold text-gray-dark mt-3 w-full'>
+          You don{"'"}t follow anyone :(
+        </li>
+      )}
       {friends.map((friend: UserType) => (
         <Contact key={friend._id} user={friend} />
       ))}
