@@ -84,7 +84,11 @@ router.get('/feed/:userId', async (req, res) => {
       })
     );
 
-    res.status(200).json(currentUserPosts.concat(...friendPosts));
+    res.status(200).json(
+      currentUserPosts.concat(...friendPosts).sort((p1, p2) => {
+        return new Date(p2.createdAt) - new Date(p1.createdAt);
+      })
+    );
   } catch (err) {
     res.status(500).json(err);
   }
