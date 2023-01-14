@@ -2,7 +2,7 @@ import { Contact } from './Contact';
 
 export const Contacts = () => {
   return (
-    <ul>
+    <ul className='mt-2 pl-2'>
       <li>
         <Contact />
       </li>
