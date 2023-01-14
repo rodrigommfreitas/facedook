@@ -1,22 +1,31 @@
-import { Route, Routes } from 'react-router-dom';
-
+import { useContext } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Profile } from './pages/Profile';
-import { Register } from './pages/Register';
 
 export const App = () => {
+  const { user } = useContext(AuthContext);
+
   return (
-    <Routes>
-      <Route path='*' element={<Home />}></Route>
-      <Route index element={<Home />}></Route>
-      <Route path='/' element={<Home />}></Route>
-      <Route path='/home' element={<Home />}></Route>
-
-      <Route path='/profile/:username' element={<Profile />}></Route>
-
-      <Route path='/login' element={<Login />}></Route>
-      <Route path='/register' element={<Register />}></Route>
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        {user ? (
+          <>
+            <Route path='*' element={<Home />}></Route>
+            <Route index element={<Home />}></Route>
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/home' element={<Home />}></Route>
+            <Route path='/profile/:username' element={<Profile />}></Route>
+          </>
+        ) : (
+          <>
+            <Route path='*' element={<Login />}></Route>
+            <Route path='/login' element={<Login />}></Route>
+          </>
+        )}
+      </Routes>
+    </BrowserRouter>
   );
 };
