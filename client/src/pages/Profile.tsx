@@ -70,7 +70,7 @@ export const Profile = () => {
   return (
     <div className='bg-gray-light w-full  min-h-screen h-fit'>
       <Topbar />
-      <div className='w-screen flex bg-white h-[440px] md:h-[590px] lg:h-[600px] shadow-md shadow-gray-200'>
+      <div className='w-screen flex bg-white h-[438px] md:h-[590px] lg:h-[600px] shadow-md shadow-gray-200'>
         <div className='mx-auto w-full bg-gradient-to-b from-[#7F94AE] to-white h-[250px] md:h-[400px]'>
           <img
             src={profileUser?.bannerPicture}
