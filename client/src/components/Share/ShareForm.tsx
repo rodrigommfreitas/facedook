@@ -11,7 +11,6 @@ import { MoreIcon } from '../Icons/MoreIcon';
 import { PhotoVideoIcon } from '../Icons/PhotoVideoIcon';
 import { SmileIcon } from '../Icons/SmileIcon';
 import { UserTagIcon } from '../Icons/UserTagIcon';
-import { PostType } from '../../globals/types';
 
 type Props = {
   isOpen: boolean;
