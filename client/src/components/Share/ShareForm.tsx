@@ -1,4 +1,5 @@
-import { useContext, useEffect, useRef } from 'react';
+import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import { instance as axios } from '../../globals/axios';
 import { AuthContext } from '../../context/AuthContext';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { CloseIcon } from '../Icons/CloseIcon';
@@ -10,6 +11,7 @@ import { MoreIcon } from '../Icons/MoreIcon';
 import { PhotoVideoIcon } from '../Icons/PhotoVideoIcon';
 import { SmileIcon } from '../Icons/SmileIcon';
 import { UserTagIcon } from '../Icons/UserTagIcon';
+import { PostType } from '../../globals/types';
 
 type Props = {
   isOpen: boolean;
@@ -17,11 +19,13 @@ type Props = {
 };
 
 export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
+  const [file, setFile] = useState<File | null>(null);
+  const [isDescEmpty, setIsDescEmpty] = useState<boolean>(true);
   const { user } = useContext(AuthContext);
+  const componentRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLTextAreaElement>(null);
 
-  const ref = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside(ref, () => {
+  useOnClickOutside(componentRef, () => {
     isOpen && toggleShareForm(false);
   });
 
@@ -33,13 +37,61 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
     };
   }, []);
 
+  const onChangeText = () => {
+    setIsDescEmpty(
+      descRef.current?.value === '' || descRef.current?.value === null
+    );
+  };
+
+  const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setFile(e.target.files[0]);
+  };
+
+  const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (
+      user &&
+      descRef.current &&
+      descRef.current.value !== '' &&
+      descRef.current.value !== null
+    ) {
+      const newPost = {
+        userId: user._id,
+        desc: descRef.current.value,
+        img: '',
+      };
+
+      if (file) {
+        const data = new FormData();
+        const fileName = Date.now() + file.name;
+        data.append('name', fileName);
+        data.append('file', file);
+        newPost.img = fileName;
+        console.log(newPost);
+        try {
+          await axios.post('/upload', data);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      try {
+        await axios.post('/posts/new', newPost);
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   const btnStyle =
     'flex items-center justify-center rounded-full h-9 w-9 hover:bg-gray-light active:bg-gray-200 active:scale-95 transition-all';
 
   return (
-    <div className='absolute flex justify-center items-center top-0 left-0 h-screen w-screen bg-black bg-opacity-30'>
+    <div className='absolute flex justify-center items-center top-0 left-0 h-screen w-screen bg-black bg-opacity-30 z-20'>
       <div
-        ref={ref}
+        ref={componentRef}
         className='w-[90%] sm:w-[500px] bg-white sm:rounded-lg shadow-md shadow-gray-dark'
       >
         <div className='flex justify-between items-center p-3 border-b border-gray-200'>
@@ -78,43 +130,77 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
             </div>
           </div>
 
-          <textarea
-            name='text'
-            id=''
-            placeholder={`What's on your mind, ${user?.username}?`}
-            className='w-full mt-4 outline-none resize-none text-2xl h-[100px] lg:h-[150px]'
-          ></textarea>
+          <form onSubmit={(e) => handlePost(e)}>
+            <textarea
+              onChange={onChangeText}
+              ref={descRef}
+              placeholder={`What's on your mind, ${user?.username}?`}
+              className='w-full mt-4 outline-none resize-none text-2xl h-[100px] lg:h-[150px]'
+            ></textarea>
+            <input
+              className='hidden'
+              type='file'
+              id='file'
+              accept='.png,.jpeg,.jpg'
+              onChange={(e) => onChangeFile(e)}
+            />
 
-          <div className='my-4 p-4 flex justify-center sm:justify-between border rounded-lg border-gray-300 shadow-md shadow-gray-light'>
-            <button className='hidden sm:block text-base font-bold'>
-              Add to your post
-            </button>
+            {file && (
+              <div className='flex justify-between items-center border rounded-lg border-gray-300 shadow-md shadow-gray-light p-2'>
+                <span>
+                  File selected:{' '}
+                  <a className='text-primary hover:underline'>{file.name}</a>
+                </span>
+                <button
+                  onClick={() => setFile(null)}
+                  className='h-fit w-fit rounded-full hover:bg-gray-light p-1 active:bg-gray-300 active:scale-95 transition-all duration-100'
+                >
+                  <CloseIcon height='1.25em' width='1.25em' />
+                </button>
+              </div>
+            )}
+            <div className='my-4 p-4 flex justify-center sm:justify-between border rounded-lg border-gray-300 shadow-md shadow-gray-light'>
+              <button className='hidden sm:block text-base font-bold'>
+                Add to your post
+              </button>
 
-            <div className='flex gap-2 sm:gap-1'>
-              <button className={`text-green-500 ${btnStyle}`}>
-                <PhotoVideoIcon height='1.5em' width='1.5em' />
-              </button>
-              <button className={`text-primary ${btnStyle}`}>
-                <UserTagIcon height='1.5em' width='1.5em' />
-              </button>
-              <button className={`text-yellow-500 ${btnStyle}`}>
-                <SmileIcon height='1.5em' width='1.5em' />
-              </button>
-              <button className={`text-rose-600 ${btnStyle}`}>
-                <LocationIcon height='1.5em' width='1.5em' />
-              </button>
-              <button className={`text-teal-400 ${btnStyle}`}>
-                <FlagIcon height='1.5em' width='1.5em' />
-              </button>
-              <button className={`text-gray-dark ${btnStyle}`}>
-                <MoreIcon height='1.5em' width='1.5em' />
-              </button>
+              <div className='flex gap-2 sm:gap-1'>
+                <label
+                  htmlFor='file'
+                  className={`text-green-500 ${btnStyle} cursor-pointer`}
+                >
+                  <PhotoVideoIcon height='1.5em' width='1.5em' />
+                </label>
+                <button className={`text-primary ${btnStyle}`}>
+                  <UserTagIcon height='1.5em' width='1.5em' />
+                </button>
+                <button className={`text-yellow-500 ${btnStyle}`}>
+                  <SmileIcon height='1.5em' width='1.5em' />
+                </button>
+                <button className={`text-rose-600 ${btnStyle}`}>
+                  <LocationIcon height='1.5em' width='1.5em' />
+                </button>
+                <button className={`text-teal-400 ${btnStyle}`}>
+                  <FlagIcon height='1.5em' width='1.5em' />
+                </button>
+                <button className={`text-gray-dark ${btnStyle}`}>
+                  <MoreIcon height='1.5em' width='1.5em' />
+                </button>
+              </div>
             </div>
-          </div>
 
-          <button className='w-full py-2 bg-gray-light text-gray-300 font-bold rounded-lg'>
-            Post
-          </button>
+            <button
+              type='submit'
+              disabled={isDescEmpty}
+              className={` ${
+                isDescEmpty
+                  ? 'bg-gray-light text-gray-400'
+                  : 'bg-primary text-white'
+              } w-full py-2 font-bold rounded-lg hover:bg-blue-700 active:bg-blue-800 active:scale-[0.98] transition-all duration-100`}
+            >
+              Post
+            </button>
+          </form>
         </div>
       </div>
     </div>
