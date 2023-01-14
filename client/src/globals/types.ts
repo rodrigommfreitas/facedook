@@ -1,3 +1,17 @@
+import { Dispatch } from 'react';
+
+export type AppStateType = {
+  user: UserType | null;
+  isFetching: boolean;
+  error: boolean;
+  dispatch?: Dispatch<AuthActionType>;
+};
+
+export type AuthActionType = {
+  type: string;
+  payload?: string | UserType | unknown;
+};
+
 export type IconProps = {
   width?: string;
   height?: string;
