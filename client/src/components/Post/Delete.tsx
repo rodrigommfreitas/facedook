@@ -56,7 +56,7 @@ export const Delete = ({ toggleDeleting, postId }: Props) => {
         </div>
 
         <div className='w-full h-32 flex flex-col gap-4 items-center justify-center'>
-          <span className='text-lg'>
+          <span className='md:text-lg'>
             Are you sure you want to delete this post?
           </span>
           <button
