@@ -32,7 +32,6 @@ export const Post = ({ post }: Props) => {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(`users?userId=${post.userId}`);
-      console.log(res);
       setUser(res.data);
     };
     fetchUser();
@@ -54,7 +53,7 @@ export const Post = ({ post }: Props) => {
 
   const btnStyle =
     'flex gap-2 py-2 rounded-lg items-center justify-center hover:bg-gray-light active:bg-gray-200 transition-all';
-  console.log(PF + post.img);
+
   return (
     <>
       {isDeleting && (
