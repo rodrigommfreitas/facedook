@@ -14,14 +14,14 @@ import { Friends } from '../components/Friends/Friends';
 export const Profile = () => {
   const [profileUser, setProfileUser] = useState<UserType | null>(null);
   const [currentPage, setCurrentPage] = useState<string>('posts');
-  const profileUsername = useParams().username;
+  const profileUsername: string = useParams().username as string;
   const { user: currentUser, dispatch } = useContext(AuthContext);
 
   let followed = profileUser?.followers.includes(
     currentUser?._id as string
   ) as boolean;
 
-  const isOwnProfile = currentUser?._id === profileUser?._id;
+  const isOwnProfile: boolean = currentUser?._id === profileUser?._id;
 
   const handlePageSwitch = (page: string) => {
     setCurrentPage(page);
