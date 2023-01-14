@@ -148,7 +148,11 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
               <div className='flex justify-between items-center border rounded-lg border-gray-300 shadow-md shadow-gray-light p-2'>
                 <span>
                   File selected:{' '}
-                  <a className='text-primary hover:underline'>{file.name}</a>
+                  <a className='text-primary hover:underline'>
+                    {file.name.length > 30
+                      ? file.name.substring(0, 24) + '...'
+                      : file.name}
+                  </a>
                 </span>
                 <button
                   onClick={() => setFile(null)}
@@ -190,12 +194,12 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
 
             <button
               type='submit'
-              disabled={isDescEmpty}
+              disabled={isDescEmpty && !file}
               className={` ${
-                isDescEmpty
+                isDescEmpty && !file
                   ? 'bg-gray-light text-gray-400'
-                  : 'bg-primary text-white'
-              } w-full py-2 font-bold rounded-lg hover:bg-blue-700 active:bg-blue-800 active:scale-[0.98] transition-all duration-100`}
+                  : 'bg-primary text-white hover:bg-blue-700 active:bg-blue-800 active:scale-[0.98] transition-all duration-100'
+              } w-full py-2 font-bold rounded-lg`}
             >
               Post
             </button>
