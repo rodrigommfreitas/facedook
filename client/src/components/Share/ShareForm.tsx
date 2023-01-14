@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { CloseIcon } from '../Icons/CloseIcon';
 import { DownIcon } from '../Icons/DownIcon';
@@ -16,6 +17,8 @@ type Props = {
 };
 
 export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
+  const { user } = useContext(AuthContext);
+
   const ref = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(ref, () => {
@@ -53,14 +56,20 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
         <div className='py-3 px-4'>
           <div className='flex items-center gap-1'>
             <a href='#' className='mr-2'>
-              <img
-                src=''
-                alt=''
-                className='bg-primary w-10 h-10 rounded-full object-cover'
-              />
+              {user?.profilePicture !== '' ? (
+                <img
+                  src={user?.profilePicture}
+                  alt=''
+                  className='w-10 h-10 rounded-full object-cover'
+                />
+              ) : (
+                <div className='text-3xl font-black text-primary w-10 h-10 rounded-full bg-gray-light object-cover flex items-center justify-center'>
+                  {user.username.charAt(0).toLocaleUpperCase()}
+                </div>
+              )}
             </a>
             <div className='flex flex-col gap-1'>
-              <span className='font-semibold'>Chuck Norris</span>
+              <span className='font-semibold'>{user?.username}</span>
               <button className='bg-gray-light text-xs font-semibold w-fit py-1 px-2 flex items-center gap-1 rounded-md'>
                 <FriendsIcon />
                 <span>Friends</span>
@@ -72,7 +81,7 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
           <textarea
             name='text'
             id=''
-            placeholder="What's on your mind, Chuck?"
+            placeholder={`What's on your mind, ${user?.username}?`}
             className='w-full mt-4 outline-none resize-none text-2xl h-[100px] lg:h-[150px]'
           ></textarea>
 
