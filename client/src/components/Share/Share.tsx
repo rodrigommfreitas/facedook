@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import { LiveVideoIcon } from '../Icons/LiveVideoIcon';
 import { PhotoVideoIcon } from '../Icons/PhotoVideoIcon';
 import { SmileIcon } from '../Icons/SmileIcon';
 import { ShareForm } from './ShareForm';
 
 export const Share = () => {
+  const { user } = useContext(AuthContext);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleShareForm = (a: boolean) => {
@@ -23,17 +26,24 @@ export const Share = () => {
       <div className='w-full bg-white px-4 py-3 sm:rounded-lg shadow-sm shadow-gray-300'>
         <div className='flex gap-2'>
           <a href='#'>
-            <img
-              src=''
-              alt=''
-              className='bg-primary w-11 h-10 rounded-full object-cover'
-            />
+            {user?.profilePicture !== '' ? (
+              <img
+                src={user?.profilePicture}
+                alt=''
+                className='w-10 h-10 rounded-full object-cover'
+              />
+            ) : (
+              <div className='text-3xl font-black text-primary w-10 h-10 rounded-full bg-gray-light object-cover flex items-center justify-center'>
+                {user.username.charAt(0).toLocaleUpperCase()}
+              </div>
+            )}
           </a>
           <button
             onClick={() => toggleShareForm(true)}
             className='bg-gray-light text-lg w-full text-gray-dark h-10 flex items-center px-3 rounded-full cursor-pointer hover:bg-gray-200 active:bg-gray-300'
           >
-            What{"'"}s on your mind, <span> Chuck?</span>
+            What{"'"}s on your mind,{' '}
+            <span className='ml-1'> {user?.username + '?'}</span>
           </button>
         </div>
 
