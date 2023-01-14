@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { GamesIcon } from '../Icons/GamesIcon';
 import { GroupsIcon } from '../Icons/GroupsIcon';
 import { HamburgerMenuIcon } from '../Icons/HamburgerMenuIcon';
@@ -6,13 +7,14 @@ import { MarketplaceIcon } from '../Icons/MarketplaceIcon';
 import { PlayIcon } from '../Icons/PlayIcon';
 
 export const Nav = () => {
+  const navigate = useNavigate();
   return (
     <nav className='md:absolute md:left-1/2 md:right-1/2 py-1'>
       <ul className='flex gap-2 items-center justify-center'>
         <li className='hidden md:flex justify-center'>
           <a
-            href='#'
-            className='text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-4 lg:px-10 xl:px-12 active:bg-gray-200 transition-all'
+            onClick={() => navigate('/home')}
+            className='cursor-pointer text-gray-dark hover:bg-gray-light rounded-lg py-[10px] px-4 lg:px-10 xl:px-12 active:bg-gray-200 transition-all'
           >
             <HomeIcon height='1.75em' width='1.75em' />
           </a>
