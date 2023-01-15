@@ -13,7 +13,6 @@ const UserSchema = new mongoose.Schema(
     bio: { type: String, max: 50, default: '' },
     location: { type: String, max: 50, default: 'unknown' },
     from: { type: String, max: 50, default: 'unknown' },
-    status: { type: Number, enum: [1, 2, 3] },
   },
   { timestamps: true }
 );
