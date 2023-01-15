@@ -1,16 +1,22 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import { instance as axios } from '../globals/axios';
 import { AuthContext } from '../context/AuthContext';
 import { useOnClickOutside } from '../hooks/useOnClickOutside';
+import { PF } from '../globals/env';
 import { CloseIcon } from './Icons/CloseIcon';
 import { PencilIcon } from './Icons/PencilIcon';
+import { AuthActionType } from '../globals/types';
+import { CameraIcon } from './Icons/CameraIcon';
 
 type Props = {
   toggleEditing: () => void;
 };
 
 export const EditProfile = ({ toggleEditing }: Props) => {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
 
+  const [file, setFile] = useState<File | null>(null);
+  const [img, setImg] = useState<string>(user?.profilePicture as string);
   const [name, setName] = useState<string>(user?.username as string);
   const [location, setLocation] = useState<string>(user?.location as string);
   const [from, setFrom] = useState<string>(user?.from as string);
@@ -21,11 +27,13 @@ export const EditProfile = ({ toggleEditing }: Props) => {
   const [isEditingFrom, setIsEditingFrom] = useState<boolean>(false);
   const [isEditingBio, setIsEditingBio] = useState<boolean>(false);
 
+  const imgRef = useRef<HTMLImageElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const fromRef = useRef<HTMLInputElement>(null);
   const bioRef = useRef<HTMLInputElement>(null);
-  const componentRef = useRef<HTMLDivElement>(null);
+  const componentRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,6 +46,79 @@ export const EditProfile = ({ toggleEditing }: Props) => {
   useOnClickOutside(componentRef, () => {
     toggleEditing();
   });
+
+  const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setFile(e.target.files[0]);
+
+    setImg(URL.createObjectURL(e.target.files[0]));
+
+    imgRef.current &&
+      (imgRef.current.src = URL.createObjectURL(e.target.files[0]));
+
+    imgRef.current &&
+      (imgRef.current.onload = () => {
+        URL.revokeObjectURL(imgRef.current?.src as string); // free memory
+      });
+
+    console.log(imgRef.current?.src);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Looks messy but this validation is needed to avoid unnecessary requests
+    if (
+      (user &&
+        name !== '' &&
+        name !== null &&
+        location !== '' &&
+        location !== null &&
+        from !== '' &&
+        from !== null &&
+        bio !== null) ||
+      (user && img !== user.profilePicture)
+    ) {
+      const newUserData = {
+        _id: user._id,
+        profilePicture: user.profilePicture,
+        bannerPicture: user.bannerPicture,
+        username: name,
+        location: location,
+        from: from,
+        bio: bio,
+      };
+      console.log(newUserData);
+      if (file) {
+        const data = new FormData();
+        const fileName = Date.now() + file.name;
+        data.append('name', fileName);
+        data.append('file', file);
+        newUserData.profilePicture = fileName;
+        try {
+          await axios.post('/upload', data);
+
+          (dispatch as React.Dispatch<AuthActionType>)({
+            type: 'EDIT_PROFILE',
+            payload: newUserData,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      try {
+        await axios.put('/users/' + user._id, newUserData);
+
+        (dispatch as React.Dispatch<AuthActionType>)({
+          type: 'EDIT_PROFILE',
+          payload: newUserData,
+        });
+        console.log('hahaha');
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   const toggleEditingName = () => {
     setIsEditingName(!isEditingName);
@@ -69,7 +150,8 @@ export const EditProfile = ({ toggleEditing }: Props) => {
 
   return (
     <div className='absolute flex justify-center items-center top-0 left-0 h-screen w-screen bg-black bg-opacity-30 z-20'>
-      <div
+      <form
+        onSubmit={(e) => handleSubmit(e)}
         ref={componentRef}
         className='w-[90%] sm:w-[500px] bg-white sm:rounded-lg shadow-md shadow-gray-dark'
       >
@@ -77,6 +159,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
           <div className='h-9 w-9 -z-10'></div>
           <h1 className='font-bold text-xl'>Edit profile</h1>
           <button
+            type='button'
             onClick={toggleEditing}
             className='right-0 h-9 w-9 bg-gray-light flex items-center justify-center rounded-full hover:bg-gray-200 active:bg-gray-300 active:scale-95 transition-all'
           >
@@ -85,18 +168,51 @@ export const EditProfile = ({ toggleEditing }: Props) => {
         </div>
         <div className='p-8'>
           <div className='flex gap-4 sm:gap-8'>
-            {user?.profilePicture !== '' ? (
-              <button className='h-fit w-fit'>
+            <input
+              ref={fileRef}
+              className='hidden'
+              type='file'
+              id='file'
+              accept='.png,.jpeg,.jpg'
+              onChange={(e) => onChangeFile(e)}
+            />
+            {img !== '' ? (
+              <label
+                htmlFor='file'
+                className='h-[128px] w-[128px] min-h-[128px] min-w-[128px] sm:h-[168px] sm:w-[168px] sm:min-h-[168px] sm:min-w-[168px] cursor-pointer'
+              >
                 <img
-                  src={user?.profilePicture}
-                  alt=''
-                  className='min-h-[128px] min-w-[128px] sm:h-[168px] sm:w-[168px] rounded-lg object-cover'
+                  ref={imgRef}
+                  src={img}
+                  className={` ${
+                    img !== user?.profilePicture ? 'block' : 'hidden'
+                  } min-h-[128px] min-w-[128px] sm:h-[168px] sm:w-[168px] rounded-lg object-cover`}
                 />
-              </button>
+                <img
+                  src={PF + img}
+                  className={` ${
+                    img !== user?.profilePicture ? 'hidden' : 'block'
+                  } min-h-[128px] min-w-[128px] sm:h-[168px] sm:w-[168px] rounded-lg object-cover`}
+                />
+                <button
+                  type='button'
+                  className='h-fit w-fit relative -top-6 left-[108px] sm:left-36  bg-gray-light p-2 rounded-full'
+                >
+                  <CameraIcon height='1.25em' width='1.25em' />
+                </button>
+              </label>
             ) : (
-              <button className='text-9xl font-black text-primary min-h-[128px] min-w-[128px] sm:min-h-[168px] sm:min-w-[168px] rounded-lg bg-gray-light object-cover flex items-center justify-center'>
-                {user.username.charAt(0).toLocaleUpperCase()}
-              </button>
+              <label htmlFor='file' className='cursor-pointer '>
+                <div className='text-9xl font-black text-primary h-[128px] w-[128px] min-h-[128px] min-w-[128px] sm:h-[168px] sm:w-[168px] sm:min-h-[168px] sm:min-w-[168px] rounded-lg bg-gray-light object-cover flex items-center justify-center'>
+                  {user?.username.charAt(0).toLocaleUpperCase()}
+                </div>
+                <button
+                  type='button'
+                  className='h-fit w-fit relative -top-6 left-[108px] sm:left-36  bg-gray-light p-2 rounded-full'
+                >
+                  <CameraIcon height='1.25em' width='1.25em' />
+                </button>
+              </label>
             )}
             <div className='flex flex-col justify-between py-4'>
               <div className='flex gap-2 items-center'>
@@ -114,6 +230,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
                       id=''
                     />
                     <button
+                      type='button'
                       onClick={toggleEditingName}
                       className='rounded-full p-1 hover:bg-gray-light active:bg-gray-300 active:scale-95 transition-all'
                     >
@@ -124,6 +241,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
                   <>
                     <div className='text-xl sm:text-2xl font-bold'>{name}</div>
                     <button
+                      type='button'
                       onClick={toggleEditingName}
                       className='rounded-full p-1 hover:bg-gray-light active:bg-gray-300 active:scale-95 transition-all'
                     >
@@ -151,6 +269,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
                       id=''
                     />
                     <button
+                      type='button'
                       onClick={toggleEditingName}
                       className='rounded-full p-1 hover:bg-gray-light active:bg-gray-300 active:scale-95 transition-all'
                     >
@@ -161,6 +280,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
                   <>
                     <span>{location}</span>
                     <button
+                      type='button'
                       onClick={toggleEditingLocation}
                       className='rounded-full p-1 hover:bg-gray-light active:bg-gray-300 active:scale-95 transition-all'
                     >
@@ -187,6 +307,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
                       id=''
                     />
                     <button
+                      type='button'
                       onClick={toggleEditingFrom}
                       className='rounded-full p-1 hover:bg-gray-light active:bg-gray-300 active:scale-95 transition-all'
                     >
@@ -197,6 +318,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
                   <>
                     <span>{from}</span>
                     <button
+                      type='button'
                       onClick={toggleEditingFrom}
                       className='rounded-full p-1 hover:bg-gray-light active:bg-gray-300 active:scale-95 transition-all'
                     >
@@ -213,6 +335,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
               <div className='sm:text-lg font-bold text-gray-dark'>Bio:</div>
               {isEditingBio ? (
                 <button
+                  type='button'
                   onClick={toggleEditingBio}
                   className='rounded-full p-1 hover:bg-gray-light active:bg-gray-300 active:scale-95 transition-all'
                 >
@@ -220,6 +343,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
                 </button>
               ) : (
                 <button
+                  type='button'
                   onClick={toggleEditingBio}
                   className='rounded-full p-1 hover:bg-gray-light active:bg-gray-300 active:scale-95 transition-all'
                 >
@@ -241,15 +365,18 @@ export const EditProfile = ({ toggleEditing }: Props) => {
                   id=''
                 />
               ) : (
-                <div>{bio}qeqwewqewq</div>
+                <div>{bio}</div>
               )}
             </div>
           </div>
         </div>
-        <button className='mx-auto flex mb-8 bg-primary text-gray-light font-bold rounded-lg py-1 px-2 transition-all hover:bg-blue-700 active:bg-blue-800 active:scale-95'>
+        <button
+          type='submit'
+          className='mx-auto flex mb-8 bg-primary text-gray-light font-bold rounded-lg py-1 px-2 transition-all hover:bg-blue-700 active:bg-blue-800 active:scale-95'
+        >
           <span>Edit Profile</span>
         </button>
-      </div>
+      </form>
     </div>
   );
 };
