@@ -25,3 +25,8 @@ export const Unfollow = (userId: string) => ({
   type: 'UNFOLLOW',
   payload: userId,
 });
+
+export const EditProfile = (user: UserType) => ({
+  type: 'EDIT_PROFILE',
+  payload: user,
+});
