@@ -174,7 +174,7 @@ export const Profile = () => {
 
       <div className='my-4 flex flex-col gap-4 w-full max-w-[800px] mx-auto px-4 lg:px-[50px]'>
         {currentPage === 'posts' && <Feed username={profileUsername} />}
-        {currentPage === 'about' && <About username={profileUsername} />}
+        {profileUser && currentPage === 'about' && <About user={profileUser} />}
         {profileUser && currentPage === 'friends' && (
           <Friends user={profileUser} />
         )}
