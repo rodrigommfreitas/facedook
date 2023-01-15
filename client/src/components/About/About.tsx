@@ -3,6 +3,7 @@ import { UserType } from '../../globals/types';
 type Props = {
   user: UserType;
 };
+
 export const About = ({ user }: Props) => {
   return (
     <div className='w-full bg-white px-4 py-3 sm:rounded-lg shadow-sm shadow-gray-300'>
