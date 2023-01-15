@@ -30,7 +30,7 @@ export const Friends = ({ user }: Props) => {
 
   console.log(friends);
   return (
-    <div className="w-full bg-white px-4 py-3 sm:rounded-lg shadow-sm shadow-gray-300'">
+    <div className='w-full bg-white px-4 py-3 sm:rounded-lg shadow-sm shadow-gray-300'>
       <ul className='grid grid-cols-2 gap-8'>
         {friends.length === 0 && (
           <li className='font-bold text-gray-dark my-3 w-full'>
