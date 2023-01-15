@@ -60,8 +60,6 @@ export const EditProfile = ({ toggleEditing }: Props) => {
       (imgRef.current.onload = () => {
         URL.revokeObjectURL(imgRef.current?.src as string); // free memory
       });
-
-    console.log(imgRef.current?.src);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -87,7 +85,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
         from: from,
         bio: bio,
       };
-      console.log(newUserData);
+
       if (file) {
         const data = new FormData();
         const fileName = Date.now() + file.name;
@@ -112,7 +110,7 @@ export const EditProfile = ({ toggleEditing }: Props) => {
           type: 'EDIT_PROFILE',
           payload: newUserData,
         });
-        console.log('hahaha');
+
         window.location.reload();
       } catch (err) {
         console.log(err);
