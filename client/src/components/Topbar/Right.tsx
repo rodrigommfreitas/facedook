@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { PF } from '../../globals/env';
 import { MessengerIcon } from '../Icons/MessengerIcon';
 import { NotificationsIcon } from '../Icons/NotificationsIcon';
 import { ShareForm } from '../Share/ShareForm';
@@ -34,7 +35,7 @@ export const Right = () => {
         <a className='cursor-pointer'>
           {user?.profilePicture !== '' ? (
             <img
-              src={user?.profilePicture}
+              src={PF + user?.profilePicture}
               alt=''
               className='w-10 h-10 rounded-full object-cover'
             />

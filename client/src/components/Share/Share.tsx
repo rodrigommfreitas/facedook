@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { PF } from '../../globals/env';
 import { LiveVideoIcon } from '../Icons/LiveVideoIcon';
 import { PhotoVideoIcon } from '../Icons/PhotoVideoIcon';
 import { SmileIcon } from '../Icons/SmileIcon';
@@ -34,7 +35,7 @@ export const Share = () => {
           >
             {user?.profilePicture !== '' ? (
               <img
-                src={user?.profilePicture}
+                src={PF + user?.profilePicture}
                 alt=''
                 className='w-10 h-10 rounded-full object-cover'
               />

@@ -68,7 +68,7 @@ export const Post = ({ post }: Props) => {
             >
               {user.profilePicture !== '' ? (
                 <img
-                  src={user.profilePicture}
+                  src={PF + user.profilePicture}
                   alt=''
                   className='w-10 h-10 rounded-full object-cover'
                 />

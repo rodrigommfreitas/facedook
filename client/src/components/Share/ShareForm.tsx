@@ -11,6 +11,7 @@ import { MoreIcon } from '../Icons/MoreIcon';
 import { PhotoVideoIcon } from '../Icons/PhotoVideoIcon';
 import { SmileIcon } from '../Icons/SmileIcon';
 import { UserTagIcon } from '../Icons/UserTagIcon';
+import { PF } from '../../globals/env';
 
 type Props = {
   isOpen: boolean;
@@ -109,7 +110,7 @@ export const ShareForm = ({ isOpen, toggleShareForm }: Props) => {
             <a href='#' className='mr-2'>
               {user?.profilePicture !== '' ? (
                 <img
-                  src={user?.profilePicture}
+                  src={PF + user?.profilePicture}
                   alt=''
                   className='w-10 h-10 rounded-full object-cover'
                 />

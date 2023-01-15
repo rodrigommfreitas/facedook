@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { instance as axios } from '../../globals/axios';
+import { PF } from '../../globals/env';
 import { AuthContext } from '../../context/AuthContext';
 import { UserType } from '../../globals/types';
 import { ArrowDownIcon } from '../Icons/ArrowDownIcon';
@@ -39,8 +40,7 @@ export const Leftbar = () => {
             >
               {user?.profilePicture !== '' ? (
                 <img
-                  src={user?.profilePicture}
-                  alt=''
+                  src={PF + user?.profilePicture}
                   className='w-9 h-9 rounded-full object-cover'
                 />
               ) : (
@@ -132,7 +132,7 @@ export const Leftbar = () => {
               >
                 {derek?.profilePicture !== '' ? (
                   <img
-                    src={derek?.profilePicture}
+                    src={PF + derek?.profilePicture}
                     alt=''
                     className='w-9 h-9 rounded-full object-cover'
                   />
