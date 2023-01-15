@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { PF } from '../../globals/env';
 import { UserType } from '../../globals/types';
 
 type Props = {
@@ -21,9 +22,9 @@ export const FriendCard = ({ user }: Props) => {
       >
         {user.profilePicture !== '' ? (
           <img
-            src={user.profilePicture}
+            src={PF + user.profilePicture}
             alt=''
-            className='w-12 h-12 rounded-md object-cover'
+            className='w-24 h-24 rounded-md object-cover'
           />
         ) : (
           <div className='text-6xl font-black text-primary w-24 h-24 rounded-md bg-gray-light object-cover flex items-center justify-center'>
