@@ -22,7 +22,6 @@ export const Friends = ({ user }: Props) => {
     getFriends();
   }, []);
 
-  console.log(friends);
   return (
     <div className='w-full bg-white px-4 py-3 sm:rounded-lg shadow-sm shadow-gray-300'>
       {friends.length > 0 && (
