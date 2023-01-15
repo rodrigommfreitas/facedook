@@ -68,7 +68,7 @@ export const Profile = () => {
     'w-full lg:w-fit justify-center flex gap-2 p-3 font-bold text-gray-dark rounded-md hover:bg-gray-light active:bg-gray-200 transition-all';
 
   return (
-    <div className='bg-gray-light w-full  min-h-screen h-fit'>
+    <div className='bg-gray-light w-full min-h-screen h-fit pb-1'>
       <Topbar />
       <div className='w-screen flex bg-white h-[438px] md:h-[590px] lg:h-[600px] shadow-md shadow-gray-200'>
         <div className='mx-auto w-full bg-gradient-to-b from-[#7F94AE] to-white h-[250px] md:h-[400px]'>
