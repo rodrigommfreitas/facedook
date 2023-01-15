@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { PF } from '../../globals/env';
 import { UserType } from '../../globals/types';
 
 type Props = {
@@ -12,7 +13,7 @@ export const Contact = ({ user }: Props) => {
       <button className='w-full p-2 flex gap-2 items-center hover:bg-gray-200 active:bg-gray-300 transition-all rounded-lg'>
         {user?.profilePicture !== '' ? (
           <img
-            src={user?.profilePicture}
+            src={PF + user?.profilePicture}
             alt=''
             className='w-9 h-9 rounded-full object-cover'
           />
