@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { PF } from '../../globals/env';
 import { MessengerIcon } from '../Icons/MessengerIcon';
@@ -9,6 +10,8 @@ export const Right = () => {
   const { user } = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const toggleShareForm = (a: boolean) => {
     setIsOpen(a);
@@ -32,7 +35,10 @@ export const Right = () => {
         <button className='p-1 bg-gray-light hover:bg-gray-200 h-10 w-10 flex items-center justify-center rounded-full active:bg-gray-300 active:scale-95 transition-all duration-100'>
           <NotificationsIcon height='1.5em' width='1.5em' />
         </button>
-        <a className='cursor-pointer'>
+        <a
+          onClick={() => navigate('/profile/' + user?.username)}
+          className='cursor-pointer'
+        >
           {user?.profilePicture !== '' ? (
             <img
               src={PF + user?.profilePicture}
