@@ -10,10 +10,12 @@ import { FollowIcon } from '../components/Icons/FollowIcon';
 import { UnfollowIcon } from '../components/Icons/UnfollowIcon';
 import { About } from '../components/About/About';
 import { Friends } from '../components/Friends/Friends';
+import { EditProfile } from '../components/EditProfile';
 
 export const Profile = () => {
   const [profileUser, setProfileUser] = useState<UserType | null>(null);
   const [currentPage, setCurrentPage] = useState<string>('posts');
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const profileUsername: string = useParams().username as string;
   const { user: currentUser, dispatch } = useContext(AuthContext);
 
@@ -64,6 +66,10 @@ export const Profile = () => {
     }
   };
 
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+  };
+
   const btnStyle =
     'w-full lg:w-fit justify-center flex gap-2 p-3 font-bold text-gray-dark rounded-md hover:bg-gray-light active:bg-gray-200 transition-all';
 
@@ -111,10 +117,16 @@ export const Profile = () => {
               </div>
             </div>
             {isOwnProfile && (
-              <button className='-translate-y-24 lg:-translate-y-0 mb-12 h-fit self-center lg:self-end flex items-center gap-2 font-bold bg-gray-light rounded-lg py-1 px-2 transition-all hover:bg-gray-200 active:bg-gray-300 active:scale-95'>
+              <button
+                onClick={toggleEditing}
+                className='-translate-y-24 lg:-translate-y-0 mb-12 h-fit self-center lg:self-end flex items-center gap-2 font-bold bg-gray-light rounded-lg py-1 px-2 transition-all hover:bg-gray-200 active:bg-gray-300 active:scale-95'
+              >
                 <PencilIcon height='1.5em' width='1.5em' />
                 <span>Edit profile</span>
               </button>
+            )}
+            {isOwnProfile && isEditing && (
+              <EditProfile toggleEditing={toggleEditing} />
             )}
             {!followed && !isOwnProfile && (
               <button
