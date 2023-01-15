@@ -67,8 +67,6 @@ export const Profile = () => {
     }
   };
 
-  console.log(profileUser);
-
   const toggleEditing = () => {
     setIsEditing(!isEditing);
   };
