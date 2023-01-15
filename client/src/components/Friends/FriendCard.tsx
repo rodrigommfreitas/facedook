@@ -14,7 +14,7 @@ export const FriendCard = ({ user }: Props) => {
   };
 
   return (
-    <li className='flex gap-6'>
+    <li className='flex gap-4'>
       <button
         onClick={() => handleClick(user.username)}
         className='h-fit w-fit'
