@@ -1,4 +1,4 @@
-import { AppStateType, AuthActionType } from '../globals/types';
+import { AuthActionType } from '../globals/types';
 
 const AuthReducer = (state: any, action: AuthActionType) => {
   switch (action.type) {
@@ -37,6 +37,10 @@ const AuthReducer = (state: any, action: AuthActionType) => {
             (following: string) => following !== action.payload
           ),
         },
+      };
+    case 'EDIT_PROFILE':
+      return {
+        user: action.payload,
       };
     default:
       return state;
