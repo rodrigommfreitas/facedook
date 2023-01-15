@@ -61,7 +61,7 @@ export const Delete = ({ toggleDeleting, postId }: Props) => {
           </span>
           <button
             onClick={handleDelete}
-            className='bg-red-500 text-gray-light flex items-center gap-2 font-bold rounded-lg py-1 px-2 transition-all hover:bg-red-600 active:bg-red-7000 active:scale-95'
+            className='bg-red-500 text-gray-light flex items-center gap-2 font-bold rounded-lg py-1 px-2 transition-all hover:bg-red-600 active:bg-red-700 active:scale-95'
           >
             <TrashIcon height='1.25em' width='1.25em' />
             <span>Delete</span>
