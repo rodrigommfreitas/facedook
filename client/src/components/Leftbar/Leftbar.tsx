@@ -97,56 +97,6 @@ export const Leftbar = () => {
           </li>
         </ul>
       </nav>
-
-      <div className='h-[1px] px-4 w-full my-2 bg-gray-300'></div>
-
-      <div>
-        <h1 className='ml-2 mb-2 text-gray-dark font-bold text-lg'>
-          Suggested
-        </h1>
-        <nav className='cursor-pointer w-full'>
-          <ul className='w-full'>
-            <li>
-              <a
-                onClick={() => navigate(`../profile/${jane?.username}`)}
-                className={`${itemStyle}`}
-              >
-                {jane?.profilePicture !== '' ? (
-                  <img
-                    src={user?.profilePicture}
-                    alt=''
-                    className='w-9 h-9 rounded-full object-cover'
-                  />
-                ) : (
-                  <div className='text-3xl font-black text-primary w-9 h-9 rounded-full bg-gray-light object-cover flex items-center justify-center'>
-                    {jane.username.charAt(0).toLocaleUpperCase()}
-                  </div>
-                )}
-                <span>{jane?.username}</span>
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => navigate(`../profile/${derek?.username}`)}
-                className={`${itemStyle}`}
-              >
-                {derek?.profilePicture !== '' ? (
-                  <img
-                    src={PF + derek?.profilePicture}
-                    alt=''
-                    className='w-9 h-9 rounded-full object-cover'
-                  />
-                ) : (
-                  <div className='text-3xl font-black text-primary w-9 h-9 rounded-full bg-gray-light object-cover flex items-center justify-center'>
-                    {derek.username.charAt(0).toLocaleUpperCase()}
-                  </div>
-                )}
-                <span>{derek?.username}</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </div>
   );
 };
