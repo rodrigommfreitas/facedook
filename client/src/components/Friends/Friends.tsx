@@ -31,12 +31,19 @@ export const Friends = ({ user }: Props) => {
   console.log(friends);
   return (
     <div className='w-full bg-white px-4 py-3 sm:rounded-lg shadow-sm shadow-gray-300'>
-      <ul className='grid grid-cols-2 gap-8'>
+      {friends.length > 0 && (
+        <h1 className='font-bold text-gray-dark text-2xl mb-4'>
+          {user.username}
+          {"'"}s friends
+        </h1>
+      )}
+      <ul className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
         {friends.length === 0 && (
           <li className='font-bold text-gray-dark my-3 w-full'>
             {user.username} doesn{"'"}t follow anyone.
           </li>
         )}
+
         {friends.map((friend: UserType) => (
           <FriendCard key={friend._id} user={friend} />
         ))}
