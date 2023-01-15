@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { instance as axios } from '../globals/axios';
+import { PF } from '../globals/env';
 import { Feed } from '../components/Feed/Feed';
 import { PencilIcon } from '../components/Icons/PencilIcon';
 import { Topbar } from '../components/Topbar/Topbar';
@@ -66,6 +67,8 @@ export const Profile = () => {
     }
   };
 
+  console.log(profileUser);
+
   const toggleEditing = () => {
     setIsEditing(!isEditing);
   };
@@ -89,7 +92,7 @@ export const Profile = () => {
               <button className='h-fit w-fit relative -top-20 lg:-top-12 rounded-full border-4 border-white'>
                 {profileUser?.profilePicture !== '' ? (
                   <img
-                    src={profileUser?.profilePicture}
+                    src={PF + profileUser?.profilePicture}
                     alt=''
                     className='h-[168px] w-[168px] rounded-full object-cover'
                   />
