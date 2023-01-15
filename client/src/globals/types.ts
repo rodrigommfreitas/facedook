@@ -28,6 +28,9 @@ export type UserType = {
   followers: string[];
   following: string[];
   isAdmin: boolean;
+  bio: string;
+  location: string;
+  from: string;
 };
 
 export type PostType = {
