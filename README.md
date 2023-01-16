@@ -39,7 +39,6 @@ After you have created your database, create a .env file and store your MongoDB 
 MONGO_URL = mongodb+srv://admin:<password>@<database>.vk6polr.mongodb.net/?retryWrites=true&w=majority
 ```
 Replace \<password\> with your password and \<database\> with your MongoDB database's name.
-### 
 ```
 npm start
 ```
@@ -52,6 +51,9 @@ npm install
 ```
 npm run dev
 ```
+### Note:
+Initially, as your database will be empty, you will need to register users in order to populate the database. This can be done either by registering users manually through the register page or by using a platform like Postman (which will be faster). 
+Also, as there is no way to see other users, before following a user, the user's profile must be accessed via URL as such: "profile/ExampleUser123".
 
 ### Preview
 ![page preview](https://raw.githubusercontent.com/rodrigommfreitas/facedook/main/preview.png)
