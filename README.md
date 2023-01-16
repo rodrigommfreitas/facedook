@@ -53,7 +53,7 @@ npm run dev
 ```
 ### Note:
 Initially, as your database will be empty, you will need to register users in order to populate the database. This can be done either by registering users manually through the register page or by using a platform like Postman (which will be faster). 
-Also, as there is no way to see other users, before following a user, the user's profile must be accessed via URL as such: "profile/ExampleUser123".
+Also, as there is no way to see other users, before following a user, the user's profile must be accessed via URL as such: "profile/ExampleUser123". Finally, the enter as guest functionality won't work unless a user is created in the database with the the following credentials: "{ email: 'guest@<span></span>user.com', password: 'guest' }", or with any other credentials of your liking as long as you change the code inside the login page accordingly. These inconveniences could be fixed if the application was actually being hosted with a connection to the database I used while building this, however, I decided not to host this as I wasn't willing to spend more time working on this project. 
 
 ### Preview
 ![page preview](https://raw.githubusercontent.com/rodrigommfreitas/facedook/main/preview.png)
