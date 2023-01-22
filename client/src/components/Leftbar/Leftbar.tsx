@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { instance as axios } from '../../globals/axios';
 import { PF } from '../../globals/env';
 import { AuthContext } from '../../context/AuthContext';
-import { UserType } from '../../globals/types';
 import { ArrowDownIcon } from '../Icons/ArrowDownIcon';
 import { FriendsIcon } from '../Icons/FriendsIcon';
 import { GroupsFillIcon } from '../Icons/GroupsFillIcon';
@@ -12,19 +10,7 @@ import { PlayFillIcon } from '../Icons/PlayFillIcon';
 
 export const Leftbar = () => {
   const { user } = useContext(AuthContext);
-  const [jane, setJane] = useState<UserType | Record<string, never>>({});
-  const [derek, setDerek] = useState<UserType | Record<string, never>>({});
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const jane = await axios.get('/users?username=Jane');
-      setJane(jane.data);
-      const derek = await axios.get('/users?username=Derek');
-      setDerek(derek.data);
-    };
-    fetchUser();
-  }, []);
 
   const itemStyle =
     'flex items-center gap-3 pl-2 py-2 hover:bg-gray-200 active:bg-gray-300 transition-all rounded-lg';
